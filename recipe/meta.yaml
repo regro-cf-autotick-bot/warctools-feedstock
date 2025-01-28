@@ -5,11 +5,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/w/warctools/warctools-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/w/warctools/warctools-{{ version }}.tar.gz
   sha256: ce0c6e274db8ac8810f7c97b3943e8e8deadbc3f5c982db77cddaae2d2ae6170
 
 build:
-  number: 1
+  number: 2
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
   entry_points:
@@ -25,13 +25,15 @@ build:
 
 requirements:
   host:
-    - python >=3.4,<3.5
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.4,<3.5
+    - python >={{ python_min }},<3.5
     - setuptools
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - hanzo
     - hanzo.httptools
